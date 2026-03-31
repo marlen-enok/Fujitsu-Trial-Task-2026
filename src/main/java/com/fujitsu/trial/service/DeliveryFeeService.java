@@ -106,7 +106,7 @@ public class DeliveryFeeService {
 
         if (windSpeed >= WSEF_HIGH_WIND_LOWER && windSpeed <= WSEF_HIGH_WIND_UPPER) return WSEF_HIGH_WIND_FEE;
         if (windSpeed > WSEF_HIGH_WIND_UPPER) {
-            throw new VehicleForbiddenException("Usage of selected vehicle type is forbidden"); // [cite: 83]
+            throw new VehicleForbiddenException("Usage of selected vehicle type is forbidden");
         }
         return 0.0;
     }
@@ -120,14 +120,14 @@ public class DeliveryFeeService {
      * @throws VehicleForbiddenException if the weather phenomenon is too dangerous for the vehicle.
      */
     private double calculateWPEF(VehicleType vehicleType, String phenomenon) {
-        if (vehicleType == VehicleType.CAR) return 0.0; // [cite: 84]
+        if (vehicleType == VehicleType.CAR) return 0.0;
         if (phenomenon == null || phenomenon.isBlank()) return 0.0;
 
         String lowerPhenomenon = phenomenon.toLowerCase();
-        if (lowerPhenomenon.contains("snow") || lowerPhenomenon.contains("sleet")) return WPEF_SNOW_FEE; // [cite: 85]
-        if (lowerPhenomenon.contains("rain") || lowerPhenomenon.contains("shower")) return WPEF_RAIN_FEE; // [cite: 86]
+        if (lowerPhenomenon.contains("snow") || lowerPhenomenon.contains("sleet")) return WPEF_SNOW_FEE;
+        if (lowerPhenomenon.contains("rain") || lowerPhenomenon.contains("shower")) return WPEF_RAIN_FEE;
         if (lowerPhenomenon.contains("glaze") || lowerPhenomenon.contains("hail") || lowerPhenomenon.contains("thunder")) {
-            throw new VehicleForbiddenException("Usage of selected vehicle type is forbidden"); // [cite: 87]
+            throw new VehicleForbiddenException("Usage of selected vehicle type is forbidden");
         }
         return 0.0;
     }
