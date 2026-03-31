@@ -45,7 +45,8 @@ public class WeatherDataService {
             if (observations != null && observations.getStations() != null) {
                 // Convert the XML timestamp to a usable LocalDateTime
                 LocalDateTime timestamp = LocalDateTime.ofInstant(
-                        Instant.ofEpochSecond(observations.getTimestamp()), ZoneId.systemDefault());
+                        Instant.ofEpochSecond(observations.getTimestamp()),
+                        ZoneId.of("Europe/Tallinn"));
 
                 // Filter for our target stations and save
                 observations.getStations().stream()

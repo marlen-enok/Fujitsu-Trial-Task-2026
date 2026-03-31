@@ -7,24 +7,28 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * Web Configuration class to customize Spring MVC behavior.
- * Maps string request parameters to Enums case-insensitively.
- */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    /**
-     * Registers custom formatters/converters for the application.
-     *
-     * @param registry the {@link FormatterRegistry} to configure.
-     */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter((Converter<String, City>)
-                source -> City.valueOf(source.toUpperCase()));
+        registry.addConverter(new StringToCityConverter());
+        registry.addConverter(new StringToVehicleTypeConverter());
+    }
 
-        registry.addConverter((Converter<String, VehicleType>)
-                source -> VehicleType.valueOf(source.toUpperCase()));
+    // Concrete class for City conversion
+    private static class StringToCityConverter implements Converter<String, City> {
+        @Override
+        public City convert(String source) {
+            return City.valueOf(source.toUpperCase());
+        }
+    }
+
+    // Concrete class for VehicleType conversion
+    private static class StringToVehicleTypeConverter implements Converter<String, VehicleType> {
+        @Override
+        public VehicleType convert(String source) {
+            return VehicleType.valueOf(source.toUpperCase());
+        }
     }
 }
